@@ -16,6 +16,7 @@ body {
 a {
     color: #44a4cd;
 }
+
 a:hover {
     color: #44a8cf;
 }
@@ -43,7 +44,6 @@ a:hover {
 
 .card-body-theme{
     background-color: #494F56;
-
 }
 
 .cards {
@@ -51,6 +51,6 @@ a:hover {
     flex-direction: column;
 }
 
-.section-container{
+.section-container {
     padding: 30px;
 }
