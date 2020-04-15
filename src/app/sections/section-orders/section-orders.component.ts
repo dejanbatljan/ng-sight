@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Order } from '../../shared/orders';
+import { SectionSalesComponent } from '../section-sales/section-sales.component';
+import { SalesDataService } from '../../services/sales-data.service'
 
 @Component({
   selector: 'app-section-orders',
@@ -8,26 +10,43 @@ import { Order } from '../../shared/orders';
 })
 export class SectionOrdersComponent implements OnInit {
 
-  constructor() { }
+  constructor(private  _salesData: SalesDataService) { }
 
-  orders:Order[] = [
-    {id: 1, customer: {id: 1, name: 'Main St Bakery', state: 'CO', email:'mymail@dot.com'}, total:230, placed: new Date(2020, 4, 1), fulfilled: new Date(2020,4,5), status: 'Complete'},
-    {id: 2, customer: {id: 1, name: 'Main St Bakery', state: 'CO', email:'mymail@dot.com'}, total:230, placed: new Date(2020, 4, 1), fulfilled: new Date(2020,4,5), status: 'Complete'},
-    {id: 3, customer: {id: 1, name: 'Main St Bakery', state: 'CO', email:'mymail@dot.com'}, total:230, placed: new Date(2020, 4, 1), fulfilled: new Date(2020,4,5), status: 'Complete'},
-    {id: 4, customer: {id: 1, name: 'Main St Bakery', state: 'CO', email:'mymail@dot.com'}, total:230, placed: new Date(2020, 4, 1), fulfilled: new Date(2020,4,5), status: 'Complete'},
-    {id: 5, customer: {id: 1, name: 'Main St Bakery', state: 'CO', email:'mymail@dot.com'}, total:230, placed: new Date(2020, 4, 1), fulfilled: new Date(2020,4,5), status: 'Complete'}
-
-  ];
+  orders:Order[] ;
+  total = 0;
+  page=1;
+  limit=10;
+  loading=false;
 
   ngOnInit(): void {
+    this.getOrders();
+  }
+
+  getOrders(): void {
+    this._salesData.getOrders(this.page, this.limit)
+    .subscribe(res => {
+      this.orders = res['page']['data'];
+      this.total = res['page'].total;
+      this.loading =false;
+    });
   }
 
   goToPrevious(): void {
-    console.log('Previous Button Clicked');
+    //console.log('Previous Button Clicked');
+    this.page--;
+    this.getOrders();
   }
 
   goToNext(): void {
-    console.log('Next Button Clicked');
+    //console.log('Next Button Clicked');
+    this.page++;
+    this.getOrders();
+  }
+
+  goToPage(n:number): void {
+    //console.log('Next Button Clicked');
+    this.page=n;
+    this.getOrders();
   }
 
 }
