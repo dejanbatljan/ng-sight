@@ -22,4 +22,12 @@ export class SectionOrdersComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  goToPrevious(): void {
+    console.log('Previous Button Clicked');
+  }
+
+  goToNext(): void {
+    console.log('Next Button Clicked');
+  }
+
 }
