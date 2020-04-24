@@ -25,6 +25,7 @@ export class SectionOrdersComponent implements OnInit {
   getOrders(): void {
     this._salesData.getOrders(this.page, this.limit)
     .subscribe(res => {
+      console.log('Result from getOrder: ', res);
       this.orders = res['page']['data'];
       this.total = res['page'].total;
       this.loading =false;

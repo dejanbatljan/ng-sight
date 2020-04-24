@@ -25,16 +25,17 @@ export class ServerService {
   getServers(): Observable<Server[]> {
     return this._http.get('http://localhost:5000/api/server')
     .map(res => res.json())
-    .catch(this.handleError);
+    ;
   }
 
-  handleError(error: any) {
-    const errMsg = (error.message) ? error.message :
-      error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+//   handleError(error: any) {
+//     const errMsg = (error.message) ? error.message :
+//       error.status ? `${error.status} - ${error.statusText}` : 'Server error';
 
-    console.log(errMsg);
-    return Observable.throw(errMsg);
-  }
+//     console.log(errMsg);
+//     //return Observable.throw(errMsg);
+//     throwError(new Error());
+//   }
 
   handleServerMessage(msg: ServerMessage): Observable<Response> {
     const url = 'http://localhost:5000/api/server/' + msg.id;
